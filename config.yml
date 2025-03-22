@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: API de Autenticación
+  description: API para autenticación de usuarios
+  version: 1.0.0
+
+paths:
+  /api/Login:
+    post:
+      summary: Realizar inicio de sesión
+      description: Endpoint para autenticar a un usuario con las credenciales proporcionadas.
+      requestBody:
+        description: Datos necesarios para autenticar al usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            example:
+              user: "Jsosa"
+              password: "pass"
+      responses:
+        "200":
+          description: Inicio de sesión exitoso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+              example:
+                code: "200"
+                message: "Success"
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        "401":
+          description: Credenciales inválidas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+              example:
+                code: "401"
+                message: "Invalid credentials"
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        user:
+          type: string
+          example: "Jsosa"
+        password:
+          type: string
+          example: "pass"
+      required:
+        - user
+        - password
+
+    LoginResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: "Success"
+      required:
+        - code
+        - message
