@@ -1,3 +1,16 @@
+-- Crear la base de datos
+CREATE DATABASE hidroponia_db;
+
+-- Conectar a la base de datos
+\c hidroponia_db;
+
+-- Crear un usuario exclusivo para esta base de datos
+CREATE USER hidroponia_user WITH ENCRYPTED PASSWORD 'segura123';
+GRANT CONNECT ON DATABASE hidroponia_db TO hidroponia_user;
+GRANT USAGE, CREATE ON SCHEMA public TO hidroponia_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO hidroponia_user;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO hidroponia_user;
+
 -- Crear tabla de roles
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
